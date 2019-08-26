@@ -1,7 +1,7 @@
 # Instagram Image Downloader
 - Tool for saving Instagram photos from a user profile into a local folder
 - Does not save username or password
-- Uses Selenium and Chrome driver
+- Uses Selenium and Chrome Driver
 
 ## Requirements
 - Python 3
@@ -18,7 +18,7 @@
 	```
 4. Install required Python modules
 	```pip install -r requirements.txt```
-5. Download and install [Chrome Driver](https://chromedriver.chromium.org/downloads)
+5. Download and install [Chrome](https://www.google.com/chrome/) and [Chrome Driver](https://chromedriver.chromium.org/downloads)
 
 ## Usage
 - Use command line arguments to specify:
