@@ -17,7 +17,7 @@
 	cd InstagramImageDownloader
 	```
 4. Install required Python modules
-	-```pip install -r requirements.txt```
+	```pip install -r requirements.txt```
 5. Download and install [Chrome Driver](https://chromedriver.chromium.org/downloads)
 
 ## Usage
