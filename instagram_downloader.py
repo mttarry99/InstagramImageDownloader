@@ -16,36 +16,35 @@ def parse_args():
 	args = parser.parse_args()
 
 	
-# need a delay else instagram will flag as suspicious
+# need a delay else Instagram will flag as suspicious
 def send_keys_with_delay(element, text):
     for char in text:
         element.send_keys(char)
-        sleep(0.33)
+        sleep(0.1)
 
-def navigate_to_private_profile(driver):
+def navigate_to_private_profile():
 	print("Navigating to profile...")
 	driver.get("https://www.instagram.com")
 	driver.find_element_by_link_text("Log in").click()
-	sleep(3)
+	sleep(2)
 	username_field = driver.find_element_by_name("username")
 	send_keys_with_delay(username_field, username)
-	sleep(3)
 	password_field = driver.find_element_by_name("password")
 	send_keys_with_delay(password_field, password)
-	sleep(3)
 	driver.find_element_by_xpath("//div[contains(text(), 'Log')]").click()
-	sleep(3)
+	sleep(2)
 	driver.find_element_by_xpath("//button[text()='Not Now']").click()
-	sleep(3)
+	sleep(2)
 	driver.find_element_by_xpath("//span[@aria-label='Profile']").click()
+	sleep(2)
 
 
-def navigate_to_public_profile(username):
+def navigate_to_public_profile():
 	print("Navigating to profile")
 	driver.get("https://instagram.com/" + username)
 
 
-def collect_images(destination, username):
+def collect_images():
 	print("Collecting images...")
 	os.mkdir(destination + '/InstagramPhotos_' + username)
 	pictures = driver.find_elements_by_tag_name("img")
@@ -57,12 +56,13 @@ def collect_images(destination, username):
 			name_of_file = destination + '/InstagramPhotos_' + username + '/picture_' + str(i) + '.jpg'
 			with open(name_of_file, 'wb') as f:
 				f.write(resp.content)
+		i += 1
 
 
-				
 def main():
 	parse_args()
 	
+	global username, password, destination
 	username = args.username
 	password = args.password
 	destination = args.destination
@@ -75,13 +75,14 @@ def main():
 
 	global driver
 	driver = webdriver.Chrome()
+	driver.implicitly_wait(10)
 
 	if not password:
-		navigate_to_public_profile(username)
+		navigate_to_public_profile()
 	else:
-		navigate_to_private_profile(username)
+		navigate_to_private_profile()
 
-	collect_images(destination, username)
+	collect_images()
 	driver.quit()
 	
 if __name__ == "__main__":
